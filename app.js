@@ -5,6 +5,15 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require("method-override");
 const Campground = require("./models/campground");
 
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
+
+
+const userRoutes = require('./routes/users');
+
+
+
 mongoose.connect("mongodb://localhost:27017/yelp-camp", {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -15,7 +24,6 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
   console.log("Database connected");
-  // we're connected!
 });
 
 const app = express();
@@ -28,10 +36,24 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(methodOverride('_method'));
 
+// ***** Passport *****
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+app.use('/', userRoutes);
+
+// ***** HOME *****
 app.get("/", (req, res) => {
   res.render("home");
 });
 
+
+// ***** CAMPGROUNDS *****
 app.get("/campgrounds", async (req, res) => {
   const campgrounds = await Campground.find({});
   res.render("campgrounds/index", { campgrounds });
@@ -39,7 +61,7 @@ app.get("/campgrounds", async (req, res) => {
 
 app.get("/campgrounds/new", (req, res) => {
   res.render("campgrounds/new");
-});
+}); 
 
 app.post("/campgrounds", async (req, res, next) => {
   try {
@@ -80,6 +102,8 @@ app.use((err, req, res, next) => {
 
 
 
+
+// ***** SERVER PORT *****
 app.listen(3000, () => {
   console.log("Serving on port 3000");
 });
