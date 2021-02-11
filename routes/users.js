@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express"); 
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/user");
@@ -16,4 +16,4 @@ router.post("/register", catchAsync(async (req, res) => {
   res.redirect("/campgrounds");
 }));
 
-module.exports = router; 
+module.exports = router;  
