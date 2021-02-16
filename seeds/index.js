@@ -13,7 +13,6 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
   console.log("Database connected");
-  // we're connected!
 });
 
 const sample = (array) => array[Math.floor(Math.random() * array.length)];
@@ -27,9 +26,22 @@ const seedDB = async () => {
       author: '602562d6cd018c83dae8ec0a',
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
-      image: "https://source.unsplash.com/collection/483251",
       description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere consequuntur voluptatibus ratione eligendi officia, explicabo voluptate, aut accusamus nam atque, quos expedita sunt impedit iusto nulla dolorem quod ex sed?",
-      price
+      price,
+      images: [
+        {
+          url: 'https://res.cloudinary.com/cyclone/image/upload/v1613488460/Yelpcamp/ncvh3csnmhvialkw9ovx.png',
+          filename: 'Yelpcamp/ncvh3csnmhvialkw9ovx'
+        },
+        {
+          url: 'https://res.cloudinary.com/cyclone/image/upload/v1613488464/Yelpcamp/rak74fmd8lwcztxzewwp.png',
+          filename: 'Yelpcamp/rak74fmd8lwcztxzewwp'
+        },
+        {
+          url: 'https://res.cloudinary.com/cyclone/image/upload/v1613488461/Yelpcamp/mpguhp4imlm4odf2q4dr.png',
+          filename: 'Yelpcamp/mpguhp4imlm4odf2q4dr'
+        }
+      ]
     })
     await camp.save();
   }
