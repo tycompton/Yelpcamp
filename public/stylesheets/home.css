@@ -1,0 +1,17 @@
+body {
+  height: 100vh;
+  /* background-image: url('https://res.cloudinary.com/cyclone/image/upload/v1584367206/samples/landscapes/nature-mountains.jpg'); */
+  /* background-image: url('https://res.cloudinary.com/cyclone/image/upload/v1584367199/samples/landscapes/beach-boat.jpg'); */
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    url('https://res.cloudinary.com/cyclone/image/upload/v1613572127/Yelpcamp/pars-sahin-V7uP-XzqX18-unsplash_1_rkmdak.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.cover-container {
+  max-width: 60vw;
+}         
+
